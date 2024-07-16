@@ -1,0 +1,47 @@
+
+<!-- WEATHER: CLIENT ------------------------------------------------------- -->
+
+<script src='components/client/weather/weather.js'></script>
+<link rel='stylesheet' href='components/client/weather/weather.css'>
+
+<!-- ----------------------------------------------------------------------- -->
+
+<div class='weather-container'>
+
+    <!-- Controles e información -->
+    <div class="info-controls">
+        <div>
+            <i class="fa-solid fa-temperature-low" id="tempHandler" temp-unit="F"></i>
+            <small id="label-temp-unit">Temperature unit</small>
+        </div>
+
+        <div>
+            <i class="fa-solid fa-location-crosshairs"></i>
+            <small id="label-location">Location</small>
+        </div>
+    </div>
+
+    <!-- Pronóstico a cinco días -->
+    <div class="forecast">
+        <div id="daily"><template id="template-day">
+
+            <div class="day">
+                <span id="day-date" class="tooltip"></span>
+
+                <div class="day-top">
+                    <i id="day-icon"></i>
+                    <h2 id="day-name"></h2>
+                </div>
+
+                <div class="day-bottom">
+                    <p id="day-temperature"></p>
+                    <h4 id="day-condition"></h4>
+                </div>
+            </div>
+
+        </template></div>
+    </div>
+
+</div>
+
+<!-- ----------------------------------------------------------------------- -->

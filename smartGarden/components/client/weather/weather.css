@@ -1,0 +1,135 @@
+
+/* -------------------------------------------------------------------------- */
+
+.weather-container {
+    display: block;
+    flex-direction: column;
+}
+
+/* -------------------------------------------------------------------------- */
+
+.info-controls {
+    z-index: 80;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.info-controls div {
+    padding: 1.8rem 3.2rem;
+}
+
+.info-controls small {
+    padding-left: .8rem;
+}
+
+/* -------------------------------------------------------------------------- */
+
+.forecast {
+    padding: 1rem;
+    align-items: center; justify-content: center;
+}
+
+#daily {
+    justify-content: center;
+    display: flex; flex-wrap: wrap;
+}
+
+.day {
+    z-index: 80;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    transition: transform 0.3s;
+    background-color: var(--shadow-dark);
+
+    flex: 1 1 200px;
+    border-radius: 8px;
+    margin: 1rem; padding: 1rem;
+    display: flex; flex-direction: column;
+    align-items: center; text-align: center;
+}
+
+.day:hover {
+    transform: scale(1.04);
+}
+
+.day-top {
+    padding: 24px 30px 0 30px;
+}
+
+.day-top i {
+    font-size: 60px;
+}
+
+.day-bottom {
+    margin-top: 0.4rem;
+}
+
+.tooltip {
+    display: none;
+    font-size: 10pt;
+    position: absolute;
+    padding: 12px 18px;
+    border-radius: 6px;
+    font-weight: lighter;
+    color: var(--main-light);
+    top: calc(-26%); left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--main-dark);
+    animation: showTooltip 300ms ease-in-out;
+}
+
+.tooltip::after {
+    content: '';
+    position: absolute;
+    width: 0; height: 0;
+    transform: translate(-50%);
+}
+
+.day:hover .tooltip {
+    display: block;
+}
+
+@keyframes showTooltip {
+    0% { opacity: 0; transform: scaleY(0) translateX(-50%); }
+    100% { opacity: 1; transform: scaleY(1) translateX(-50%); }
+}
+
+@media only screen and (max-width: 1280px) {
+    .day {
+        flex: 1 1 calc(25% - 2rem);
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .day {
+        flex: 1 1 calc(33.3% - 2rem);
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .day {
+        flex-direction: row;
+        align-items: center;
+        flex: 1 1 100%;
+    }
+
+    .day-bottom {
+        margin-top: 0;
+        text-align: left;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .daily {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .day {
+        flex-direction: row;
+        width: 100%;
+    }
+}
+
+/* -------------------------------------------------------------------------- */

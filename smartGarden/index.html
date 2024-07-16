@@ -1,0 +1,159 @@
+
+<!-- ----------------------------------------------------------------------- -->
+
+<!DOCTYPE html>
+<html lang='en'>
+
+<!-- ----------------------------- HTML - HEAD ----------------------------- -->
+
+<head>
+    <!-- Metadata -->
+    <meta charset='UTF-8' />
+    <meta name='author' content='CodeWave' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+
+    <!-- Title -->
+    <title>smartGarden</title>
+
+    <!-- Icon -->
+    <link rel='shortcut icon' href='assets/favicon.png' type='image/png' />
+
+    <!-- StyleSheet -->
+    <link rel='stylesheet' href='css/main.css' />
+    <link rel='stylesheet' href='css/solid.css' />
+    <link rel='stylesheet' href='css/fontawesome.css' />
+
+    <!-- Scripts -->
+    <script src='script/fontawesome/solid.js'></script>
+    <script type='module' src='script/main.js'></script>
+</head>
+
+<!-- ----------------------------- HTML - BODY ----------------------------- -->
+
+<body>
+    <div class='main'>
+
+        <!-- SIDEBAR ------------------------------------------------------- -->
+
+        <div class='sidebar' open='false' id='sidebar'>
+            <div class='sidebar-content'>
+
+                <div class='component-link sidebar-link' component-id='home'>
+                    <i class='fa-solid fa-house fa-sm'></i>
+                    <strong>Inicio</strong>
+                </div>
+
+                <div class='component-link sidebar-link' component-id='gardens'>
+                    <i class='fa-solid fa-leaf fa-sm'></i>
+                    <strong>Jardines</strong>
+                </div>
+
+                <div class='component-link sidebar-link' component-id='shopping'>
+                    <i class='fa-solid fa-store fa-sm'></i>
+                    <strong>Compras</strong>
+                </div>
+
+                <div class='component-link sidebar-link' component-id='weather'>
+                    <i class='fa-solid fa-cloud-meatball fa-sm'></i>
+                    <strong>Clima</strong>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- CONTAINER ----------------------------------------------------- -->
+
+        <div class='container' id=='container'>
+
+            <!-- HEADER ---------------------------------------------------- -->
+
+            <header class='header'>
+                <div class="header-container" id="headerDiv">
+
+                    <!-- Info -->
+                    <div class='header-left'>
+                        <!-- Toggle sidebar -->
+                        <i class='sidemenu-button fa-solid fa-bars fa-lg' id='toggle-sidemu'></i>
+
+                        <!-- Logo principal -->
+                        <img src="assets/adaptive-icon.png" alt="MY SMART-GARDEN" class="header-logo">
+                    </div>
+
+                    <!-- Navegación -->
+                    <div class='header-middle' id='header-buttons'>
+                        <nav class='header-nav'>
+                            <div>
+                                <a href="#home">Inicio</a>
+                            </div>
+
+                            <div>
+                                <a href="#gardens">Jardines</a>
+                            </div>
+
+                            <div>
+                                <a href="#shopping">Compras</a>
+                            </div>
+
+                            <div>
+                                <a href="#about">Información</a>
+                            </div>
+                        </nav>
+                    </div>
+
+                    <!-- Sesión de usuario -->
+                    <div class='header-right' id='header-profile'></div>
+
+                </div>
+            </header>
+
+            <div class='session-menu' id='session-menu' open='false'>
+                <div class='session-info'>
+                    <strong>ED RUBIO</strong>
+                    <small>Amante de la naturaleza</small>
+                </div>
+
+                <div class='divider-session'></div>
+
+                <div class='session-menu-button'>
+                    <i class='fa-solid fa-user fa-sm'></i>
+                    <a href=''>Perfil</a>
+                </div>
+
+                <div class='session-menu-button'>
+                    <i class='fa-solid fa-gear fa-sm'></i>
+                    <a href=''>Configuración</a>
+                </div>
+
+                <div class='session-menu-button'>
+                    <i class='fa-solid fa-right-from-bracket fa-sm'></i>
+                    <a href=''>Cerrar sesión</a>
+                </div>
+            </div>
+
+            <!-- CONTENT --------------------------------------------------- -->
+
+            <div class='content'>
+
+                <!-- CONTENIDO --------------------------------------------- -->
+
+                <div id='content' class='content'></div>
+
+                <!-- FOOTER ------------------------------------------------ -->
+
+                <footer id='footer'>
+                    <i class='fa-solid fa-code'></i>
+                    <small>CodeWave</small>
+                </footer>
+
+            </div>
+
+        </div>
+
+    </div>
+</body>
+
+<!-- ----------------------------------------------------------------------- -->
+
+</html>
+
+<!-- ----------------------------------------------------------------------- -->
