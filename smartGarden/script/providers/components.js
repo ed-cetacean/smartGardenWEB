@@ -1,65 +1,139 @@
+
 // ----------------------------- APP COMPONENTS ----------------------------- //
 
-// Lista de componentes.
 export let settings = {
 
     load: {
-        components: [
-            { id: 'shopping-admin', url: 'components/admin/shopping' },
-            { id: 'stats-admin', url: 'components/admin/stats' },
 
-            { id: 'gardens', url: 'components/client/gardens' },
-            { id: 'stats', url: 'components/client/stats' },
-            { id: 'weather', url: 'components/client/weather' },
-            { id: 'shopping', url: 'components/client/shopping' },
-
-            { id: 'about', url: 'components/feed/about' },
-            { id: 'home', url: 'components/feed/home' },
-
+        // No se ha iniciado sesión.
+        start: [
+            { id: 'initialHome', url: 'components/start/initialHome' },
             { id: 'signin', url: 'components/start/signin' },
             { id: 'signup', url: 'components/start/signup' },
-        ]
+        ],
+
+        // Se ha iniciado sesión.
+        feed: [
+            { id: 'about', url: 'components/feed/about' },
+            { id: 'profile', url: 'components/feed/profile' },
+        ],
+
+        // Un cliente ha iniciado sesión.
+        client: [
+            { id: 'home', url: 'components/client/home' },
+            { id: 'gardens', url: 'components/client/gardens' },
+            { id: 'gardenStats', url: 'components/client/gardenStats' },
+            { id: 'newProfile', url: 'components/client/newProfile' },
+            { id: 'shopping', url: 'components/client/shopping' },
+            { id: 'payments', url: 'components/client/payments' },
+            { id: 'weather', url: 'components/client/weather' },
+        ],
+
+        // Un administrador ha iniciado sesión.
+        admin: [
+            { id: 'users', url: 'components/admin/users' },
+        ],
+
+        // El administrador principal ha iniciado sesión.
+        superAdmin: [
+            { id: 'newAdmin', url: 'components/superAdmin/newAdmin' },
+        ],
+
     },
-}
+
+};
 
 // -------------------------------------------------------------------------- //
 
-export async function loadComponent(componentId) {
-    const component = settings.load.components.find(c => c.id === componentId);
-    if (!component) throw new Error(`Component with id "${componentId}" was not found.`);
+// Función auxiliar para cargar un componente.
+async function loadComponent(component) {
 
-    const fileName = component.url.split('/').pop();
-    if (!fileName) throw new Error('URL is required.');
+    // Se obtiene el nombre de los archivos a cargar.
+    const componentName = component.id;
 
+    // Se obtiene la ruta de los archivos a cargar.
+    const componentLocation = window.location.href;
+    const componentURL = componentLocation + component.url + '/' + componentName;
+
+    // Se agrega el parámetro de tiempo para evitar la caché del navegador.
     const now = Date.now();
-    const componentUrl = `${window.location.href}${component.url}/${fileName}`;
-    const requestUrl = `${componentUrl}.html?a=${now}`;
-    const moduleUrl = `${componentUrl}.js`;
+    const requestURL = componentURL + '.html?a=' + now;
 
-    const contentElement = document.getElementById('content');
-    if (!contentElement) throw new Error(`Content element with id "content" was not found.`);
+    const moduleURL = componentURL + '.js';
 
-    console.log('- Loading component:', componentUrl);
+    // Elemento en el que se insertará el contenido del componente.
+    const contentElement = document.getElementById('main-content');
+    if (!contentElement) throw new Error('ERROR: Content element with ID "main-content" was not found.');
 
-    const response = await fetch(requestUrl, {
-        headers: { 'cache': 'no-store' }
-    });
-    if (!response.ok) throw new Error(`Failed to load component: ${response.status} ${response.statusText}`);
+    // ---------------------------------------------------------------------- //
 
+    console.log('   • Loading component: ' + componentName.toUpperCase());
+
+    // ---------------------------------------------------------------------- //
+
+    // Se realiza una solicitud para obtener el contenido HTML del componente.
+    const response = await fetch(requestURL, { headers: { 'cache': 'no-store' } });
+    if (!response.ok) throw new Error('ERROR: Failed to load component: ' + componentName + '. '
+        + response.status + ': ' + response.statusText);
+
+    // Se inserta el contenido HTML en el elemento 'content'.
     contentElement.innerHTML = await response.text();
-    const styleElement = document.createElement('link');
-    styleElement.rel = 'stylesheet';
-    styleElement.href = `${component.url}.css`;
-    document.head.appendChild(styleElement);
 
-    importModule(moduleUrl);
-}
+    // Se importa y ejecuta el módulo JS del componente.
+    await importModule(moduleURL);
+};
 
-// Import module.
-async function importModule(moduleUrl) {
-    console.log('Importing module: ' + moduleUrl);
-    let { init } = await import(moduleUrl);
+// Función para importar y ejecutar el módulo JS de un componente.
+async function importModule(moduleSRC) {
+    console.log('   • Importing module: ' + moduleSRC);
+    let { init } = await import(moduleSRC);
     init();
-}
+};
+
+// Función para la carga de componentes según el tipo de usuario.
+export async function loadSessionComponents(user) {
+    let componentList = []; // Lista de componentes a cargar.
+    let mainComponent = null; // Componente principal (aquel que se mostrará primero).
+
+    // ---------------------------------------------------------------------- //
+
+    if (user === null) {
+        componentList = settings.load.start;
+        settings.load.start.find(component => component.id === 'initialHome');
+    } else {
+        componentList = settings.load.feed;
+
+        if (user === 'client') {
+            componentList = componentList.concat(settings.load.client);
+            mainComponent = settings.load.client.find(component => component.id === 'home');
+        } else if (user === 'admin') {
+            componentList = componentList.concat(settings.load.admin);
+            mainComponent = settings.load.admin.find(component => component.id === 'users');
+        } else if (user === 'superAdmin') {
+            componentList = componentList.concat(settings.load.admin, settings.load.superAdmin);
+            mainComponent = settings.load.superAdmin.find(component => component.id === 'newAdmin');
+        }
+    }
+
+    // ---------------------------------------------------------------------- //
+
+    // Lista los componentes accesibles para el usuario.
+    window.availableComponents = componentList;
+
+    // Carga primero el componente primario.
+    if (mainComponent) {
+        await loadComponent(mainComponent);
+    }
+};
+
+// Función para cargar un componente específico.
+export async function loadSpecificComponent(componentId) {
+    const component = window.availableComponents.find(comp => comp.id === componentId);
+    if (component) {
+        await loadComponent(component);
+    } else {
+        throw new Error('ERROR: Component not found or not accessible for this user.');
+    }
+};
 
 // -------------------------------------------------------------------------- /

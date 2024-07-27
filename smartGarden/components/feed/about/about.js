@@ -2,7 +2,7 @@
 // ABOUT: FEED -------------------------------------------------------------- //
 
 export const init = () =>{
-    console.log('- Inicializando ABOUT (FEED)...');
+    console.log('   • Inicializando ABOUT (FEED)...');
 }
 
 // -------------------------------------------------------------------------- //

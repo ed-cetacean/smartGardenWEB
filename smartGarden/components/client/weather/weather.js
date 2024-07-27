@@ -6,7 +6,7 @@ import { accuWeather } from '../../../api/config.js';
 // -------------------------------------------------------------------------- //
 
 export const init = () =>{
-    console.log('- Inicializando WEATHER (CLIENT)...');
+    console.log('   • Inicializando WEATHER (CLIENT)...');
     getGeoLocation();
 }
 

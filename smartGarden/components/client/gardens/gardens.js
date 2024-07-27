@@ -2,7 +2,7 @@
 // GARDENS: CLIENT ---------------------------------------------------------- //
 
 export const init = () =>{
-    console.log('- Inicializando GARDENS (CLIENT)...');
+    console.log('   • Inicializando GARDENS (CLIENT)...');
 }
 
 // -------------------------------------------------------------------------- //

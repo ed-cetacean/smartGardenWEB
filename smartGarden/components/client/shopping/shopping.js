@@ -2,7 +2,7 @@
 // SHOPPING: CLIENT --------------------------------------------------------- //
 
 export const init = () =>{
-    console.log('- Inicializando SHOPPING (CLIENT)...');
+    console.log('   • Inicializando SHOPPING (CLIENT)...');
 }
 
 // -------------------------------------------------------------------------- //
