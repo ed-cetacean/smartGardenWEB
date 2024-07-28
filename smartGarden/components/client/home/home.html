@@ -3,28 +3,67 @@
 
 <link rel='stylesheet' href='components/client/home/home.css' />
 
-<div id='home-search-api'>
-    <input type='text' placeholder='Buscar plantas' id='home-search-input'>
+<!-- ----------------------------------------------------------------------- -->
 
-    <button id='home-search-button'>
-        <i class="fa-solid fa-magnifying-glass"></i>
-    </button>
-</div>
+<section class='home-container'>
 
-<div id='home-search'>
-    <div id='home-search-result'>
+    <!-- Cuadro de búsqueda -->
+    <div id='hm-search'>
+        <input type='text' placeholder='Buscar plantas' id='hm-search-input'>
 
-        <div id='item-result'>
+        <button id='hm-search-button'>
+            <i class='fa-solid fa-magnifying-glass'></i>
+        </button>
+    </div>
+
+    <!-- Resultados de la búsqueda -->
+    <div id='hm-data'>
+        <div id='hm-data-result'>
+
+            <div id='hm-data-item'>
+                <img src='https://harkness-roses.s3.amazonaws.com/700/530920.jpg' loading='lazy' alt='Plant name'>
+
+                <div>
+                    <strong id='hm-result-common_name'>COMMON NAME</strong>
+                    <small id='hm-result-scientific_name'>Scientific name</small>
+                </div>
+
+            </div>
 
         </div>
 
+        <!-- Detalles de una planta específica -->
+        <div id='hm-data-details'>
 
+            <div id='hm-details-item'>
+                <strong id='hm-details-common_name'>COMMON NAME</strong>
+                <strong id='hm-details-scientific_name'>Scientific name</strong>
+
+                <img src='https://harkness-roses.s3.amazonaws.com/700/530920.jpg' loading='lazy' alt='Plant name'>
+
+                <!-- Información -->
+                <div id='hm-details-info'>
+                    <i class='fa-solid fa-heart fa-sm'></i>
+                    <strong>Ciclo de vida: </strong>
+                    <small>...</small>
+                </div>
+
+                <div id='hm-details-info'>
+                    <i class='fa-solid fa-sun fa-sm'></i>
+                    <strong>Luz solar: </strong>
+                    <small>...</small>
+                </div>
+
+                <div id='hm-details-info'>
+                    <i class='fa-solid fa-droplet fa-sm'></i>
+                    <strong>Riego: </strong>
+                    <small>...</small>
+                </div>
+            </div>
+
+        </div>
     </div>
 
-
-
-
-    <div id='home-search-details'></div>
-</div>
+</section>
 
 <!-- ----------------------------------------------------------------------- -->

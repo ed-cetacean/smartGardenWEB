@@ -11,12 +11,13 @@ export const init = () =>{
 
 // -------------------------------------------------------------------------- //
 
-
-document.getElementById('home-search-button').addEventListener('click', function() {
-    const consulta = document.getElementById('home-search-input').value;
+// Permite al botón de búsqueda realizar la consulta.
+document.getElementById('hm-search-button').addEventListener('click', function() {
+    const consulta = document.getElementById('hm-search-input').value;
     searchPlants(consulta);
 });
 
+// Realiza la consulta a la API tomando en cuenta la búsqueda ingresada por el usuario.
 async function searchPlants(consulta) {
     await fetch(perenual.url.api + 'species-list?page=1&key=' + perenual.url.apiKey + '&q=' + consulta)
         .then(response => response.json())
@@ -24,9 +25,10 @@ async function searchPlants(consulta) {
         .catch(error => { throw new Error('ERROR: ', error); });
 };
 
+// Muestra los resultados de la búsqueda.
 function showResults(data) {
-    let resultContainer = document.getElementById('home-search-result');
-    let detailsContainer = document.getElementById('home-search-details');
+    let resultContainer = document.getElementById('hm-search-result');
+    let detailsContainer = document.getElementById('hm-search-details');
 
     // Limpia resultados previos.
     resultContainer.innerHTML = '';
@@ -45,10 +47,5 @@ function showResults(data) {
 
     });
 }
-
-
-
-
-
 
 // -------------------------------------------------------------------------- //
