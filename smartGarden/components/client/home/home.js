@@ -21,31 +21,58 @@ document.getElementById('hm-search-button').addEventListener('click', function()
 async function searchPlants(consulta) {
     await fetch(perenual.url.api + 'species-list?page=1&key=' + perenual.url.apiKey + '&q=' + consulta)
         .then(response => response.json())
-        .then(data => { console.log(data.data); })
+        .then(data => { showResults(data.data); })
         .catch(error => { throw new Error('ERROR: ', error); });
 };
 
 // Muestra los resultados de la búsqueda.
-function showResults(data) {
-    let resultContainer = document.getElementById('hm-search-result');
-    let detailsContainer = document.getElementById('hm-search-details');
+async function showResults(data) {
+    let resultContainer = document.getElementById('hm-data-result');
+    let detailsContainer = document.getElementById('hm-data-details');
 
     // Limpia resultados previos.
     resultContainer.innerHTML = '';
     detailsContainer.innerHTML = '';
 
     // Despliega los nuevos resultados.
-    data.results.forEach(item => {
-    const div = document.createElement('div');
-        div.textContent = item.name;
-        resultContainer.appendChild(div);
+    data.forEach(item => {
+        console.log(item);
 
-    // If you want to show more details
-    const detailsDiv = document.createElement('div');
-        detailsDiv.textContent = `Details about ${item.name}: ${item.details}`;
-        detailsContainer.appendChild(detailsDiv);
+        // Contenedor.
+        let dataItem = document.createElement('div');
+        dataItem.className = 'hm-data-item';
+        dataItem.id = item.id;
 
+        // Miniatura.
+        if (item.default_image) {
+            let dataImage = document.createElement('img');
+
+            dataImage.src = item.default_image.thumbnail !== null ? item.default_image.thumbnail : 'https://static.thenounproject.com/png/4693713-200.png';
+            dataImage.alt = item.common_name;
+            dataImage.loading = 'lazy';
+
+            dataItem.appendChild(dataImage);
+        }
+
+        // Nombre común.
+        let dataCommonName = document.createElement('strong');
+        dataCommonName.className = 'hm-result-common_name';
+        dataCommonName.innerHTML = item.common_name;
+
+        // Nombre científico.
+        let dataScientificName = document.createElement('small');
+        dataScientificName.className = 'hm-result-scientific_name';
+        dataScientificName.innerHTML = item.scientific_name[0];
+
+        // Añade los elementos al contenedor.
+
+        dataItem.appendChild(dataCommonName);
+        dataItem.appendChild(dataScientificName);
+
+        // Añade el contenedor al resultado.
+        resultContainer.appendChild(dataItem);
     });
 }
+
 
 // -------------------------------------------------------------------------- //

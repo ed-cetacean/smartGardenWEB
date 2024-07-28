@@ -84,7 +84,7 @@
 
 /* -------------------------------------------------------------------------- */
 
-#hm-data-item {
+.hm-data-item {
     display: flex;
     cursor: pointer;
     flex-direction: row;
@@ -96,7 +96,7 @@
     transition: all .3s ease;
 }
 
-#hm-data-item img {
+.hm-data-item img {
     width: 3.8rem; height: calc(3.8rem - 2px);
     border-style: solid;
     border-color: var(--accent);
@@ -104,7 +104,7 @@
     border-width: 2px; border-bottom-width: 0;
 }
 
-#hm-data-item div {
+.hm-data-item div {
     padding-left: 1rem;
     transition: all .3s ease;
     width: calc(100% - 1.2rem);
@@ -113,11 +113,11 @@
     justify-content: center;
 }
 
-#hm-data-item:hover div {
+.hm-data-item:hover div {
     padding-left: 1.2rem;
 }
 
-#hm-data-item:active div {
+.hm-data-item:active div {
     padding-left: .98rem;
 }
 
