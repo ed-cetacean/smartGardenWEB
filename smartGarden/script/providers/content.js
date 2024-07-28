@@ -34,10 +34,10 @@ export async function headerContent(user) {
         headerInfo.appendChild(signupButton);
 
     } else {
-        let userName = user.firstName + ' ' + user.lastName.split(' ')[0];
+        let userName = user.firstName.split(' ')[0] + ' ' + user.lastName.split(' ')[0];
 
         // Muestra el avatar del usuario.
-        showAvatar(user.firstName, user.lastName, user.image);
+        showAvatar(user.firstName, user.lastName, user.image, user.type);
 
         // Rellena la informaicón del menú de sesión.
         headerSessionMenu(userName, user.type);
@@ -45,8 +45,11 @@ export async function headerContent(user) {
         // Crea el botón para desplegar el SIDEBAR.
         let sidebarButton = document.createElement('i');
         sidebarButton.classList = 'sidebar-button fa-solid fa-bars fa-lg';
-        sidebarButton.id = 'toggle-sidebar'
+        sidebarButton.id = 'toggle-sidebar';
         headerSidebar.appendChild(sidebarButton);
+
+        // Rellena la información del SIDEBAR.
+        sidebarMenu(user.type);
 
         // ------------------------------------------------------------------  //
 
@@ -66,7 +69,6 @@ export async function headerContent(user) {
         } else if (user.type === 'admin' || user.type === 'superAdmin') {
             // ...
         }
-
     }
 }
 
@@ -88,12 +90,19 @@ function createShortcut(name, iconFA, componentId) {
 }
 
 // Muestra las primeras dos iniciales o la imagen de usuario.
-async function showAvatar(name1, name2, image) {
+async function showAvatar(name1, name2, image, type) {
     let headerProfile = document.getElementById('header-right');
+    let sidebarProfile = document.getElementById('main-sidebar');
 
     if (!headerProfile) {
         throw new Error('ERROR: Element with ID "header-right" was not found.');
     }
+
+    if (!sidebarProfile) {
+        throw new Error('ERROR: Element with ID "header-right" was not found.');
+    }
+
+    // ---------------------------------------------------------------------- //
 
     if (image !== null) {
         let headerImage = document.createElement('img');
@@ -117,6 +126,22 @@ async function showAvatar(name1, name2, image) {
         initialsText.innerHTML = initial1 + initial2;
         headerInitials.appendChild(initialsText);
     }
+
+    let sidebarName = document.getElementById('sidebar-username');
+    let userName = name1.split(' ')[0] + ' ' + name2.split(' ')[0];
+    sidebarName.innerHTML = userName.toLocaleUpperCase();
+
+    let sidebarType = document.getElementById('sidebar-usertype');
+
+    if (type === 'client') {
+        sidebarType.innerHTML = 'Amante de la naturaleza'.toLocaleUpperCase();
+    } else if (type === 'admin') {
+        sidebarType.innerHTML = 'Administrador'.toLocaleUpperCase();
+    } else if (type === 'superAdmin') {
+        sidebarType.innerHTML = 'Administrador principal'.toLocaleUpperCase();
+    }
+
+    // ---------------------------------------------------------------------- //
 
     let sessionToggle = document.getElementById('toggle-session');
     sessionToggle.setAttribute('open', 'false');
@@ -184,10 +209,103 @@ async function toggleSessionMenu() {
         sessionToggle.setAttribute('open', 'true');
         sessionMenu.style.display = 'block';
     }
-}
+};
 
 // LOAD: SIDEBAR-CONTENT: --------------------------------------------------- //
 
+// Muestra la información del SIDEBAR.
+function sidebarMenu(type) {
+    let sidebarButton = document.getElementById('toggle-sidebar');
+        sidebarButton.setAttribute('open', 'false');
+        sidebarButton.addEventListener('click', toggleSidebar);
 
+    // ---------------------------------------------------------------------- //
+
+    let sidebar = document.getElementById('main-sidebar');
+
+    if (type === 'client') {
+        // Nombre, ícono (FontAwesome), ID del componente.
+        let buttonOne = createSidebarnButton('Perfil', 'fa-user', 'profile');
+        let buttonTwo = createSidebarnButton('Jardines', 'fa-leaf', 'gardens');
+        let buttonThree = createSidebarnButton('Compras', 'fa-store', 'shopping');
+        let buttonFour = createSidebarnButton('Clima', 'fa-cloud-sun-rain', 'weather');
+
+        sidebar.appendChild(buttonOne);
+        sidebar.appendChild(buttonTwo);
+        sidebar.appendChild(buttonThree);
+        sidebar.appendChild(buttonFour);
+    } else if (type === 'admin' || type === 'superAdmin') {
+        // ...
+    }
+
+    if (type === 'superAdmin') {
+        // ...
+    }
+};
+
+// Crea los botones del SIDEBAR.
+function createSidebarnButton(name, iconClass, componentId) {
+    let button = document.createElement('div');
+    button.classList = 'component-link main-sidebar-button';
+    button.setAttribute('component-id', componentId);
+
+    let icon = document.createElement('i');
+    icon.classList = `fa-solid ${iconClass}`;
+    let nameElement = document.createElement('strong');
+    nameElement.innerHTML = name;
+
+    button.appendChild(icon);
+    button.appendChild(nameElement);
+
+    return button;
+}
+
+// Permite mostrar/ocultar el SIDEBAR.
+async function toggleSidebar() {
+    let sidebar = document.getElementById('main-sidebar');
+    let sidebarButton = document.getElementById('toggle-sidebar');
+    let sidebarOpen = sidebarButton.getAttribute('open') === 'true';
+    let contentPage = document.getElementById('page-content');
+
+    if (sidebarOpen) {
+        sidebarButton.setAttribute('open', 'false');
+        sidebar.style.left = 'calc(-24rem - 4rem)';
+        sidebar.style.boxShadow = 'none';
+        sidebar.classList.remove('open');
+
+        contentPage.style.filter = 'none';
+
+        sidebarButton.classList.remove('fa-xmark');
+        sidebarButton.classList.add('fa-bars');
+
+    } else {
+        sidebarButton.setAttribute('open', 'true');
+        sidebar.style.left = '0';
+        sidebar.style.boxShadow = '0 0rem 2rem var(--shadow-dark)';
+        sidebar.classList.add('open');
+
+        contentPage.style.filter = 'brightness(.8)';
+
+        sidebarButton.classList.remove('fa-bars');
+        sidebarButton.classList.add('fa-xmark');
+    }
+};
+
+// Cierra los menús activos presionar en cualquier lugar de la pantalla.
+export function closeAllMenu() {
+    let content = document.getElementById('page-content');
+
+    let sidebar = document.getElementById('toggle-sidebar');
+    let sessionMenu = document.getElementById('toggle-session');
+
+    content.addEventListener('click', () => {
+        sidebar.setAttribute('open', 'true');
+        toggleSidebar();
+
+        sessionMenu.setAttribute('open', 'true');
+        toggleSessionMenu();
+    });
+
+}
 
 // -------------------------------------------------------------------------- //

@@ -1,7 +1,7 @@
 
 // ------------------------------ MAIN JSCRIPT ------------------------------ //
 
-import { headerContent } from './providers/content.js';
+import { headerContent, closeAllMenu } from './providers/content.js';
 import { loadSessionComponents, loadSpecificComponent } from './providers/components.js';
 
 // -------------------------------------------------------------------------- //
@@ -28,6 +28,9 @@ function init() {
 
     // Permite la carga de componentes en determinados botones.
     setupShortcuts();
+
+    // Permite cerrar todoss los menús desplegables.
+    closeAllMenu();
 };
 
 // ----------------------- FUNCIONALIDAD DE LA PÁGINA ----------------------- //
@@ -42,84 +45,5 @@ function setupShortcuts() {
         });
     });
 }
-
-
-
-
-// LOAD: SIDEBAR-CONTENT: --------------------------------------------------- //
-
-function sidebarContent(user) {
-    let sidebar = document.getElementById('sidebar');
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// ----------------------- FUNCIONALIDAD DE LA PÁGINA ----------------------- //
-
-// Permite mostrar/ocultar el sidebar al presionar un botón.
-// let toggleSidebar = document.getElementById('toggle-sidebar');
-
-// headerSidebar.addEventListener('click', () => {
-//     let sidebar = document.getElementById('sidebar');
-//     let sidebarOpen = sidebar.getAttribute('open') === 'true';
-
-//     if (sidebarOpen) {
-//         sidebar.setAttribute('open', 'false');
-//             sidebar.classList.add('sidebar-open');
-
-//         // Cambia el ícono del botón que abre el SIDEBAR.
-//         toggleSidebar.classList.remove('fa-xmark');
-//         toggleSidebar.classList.add('fa-bars');
-
-//     } else {
-//         sidebar.setAttribute('open', 'true');
-//             sidebar.classList.remove('sidebar-open');
-
-//         // Cambia el ícono del botón que cierra el SIDEBAR.
-//         toggleSidebar.classList.remove('fa-bars');
-//         toggleSidebar.classList.add('fa-xmark');
-//     }
-
-// })
-
-
-
-
-
-// headerSidebar.addEventListener('click', () => {
-//     let sidebar = document.getElementById('sidebar');
-//     let sidebarOpen = sidebar.getAttribute('open') === 'true';
-
-//     if (sidebarOpen) {
-//         sidebar.setAttribute('open', 'false');
-//         sidebar.style.display = 'none';
-//         headerSidebar.classList.remove('fa-xmark');
-//         headerSidebar.classList.add('fa-bars');
-//     } else {
-//         sidebar.setAttribute('open', 'true');
-//         sidebar.style.display = 'block';
-//         headerSidebar.classList.remove('fa-bars');
-//         headerSidebar.classList.add('fa-xmark');
-//     }
-// });
 
 // -------------------------------------------------------------------------- //
