@@ -1,5 +1,58 @@
 
 /* HOME: CLIENT ------------------------------------------------------------- */
 
+#home-search-api {
+    display: flex;
+    margin-top: 2rem;
+    align-items: center;
+    justify-content: center;
+}
+
+#home-search-input {
+    padding: 1rem;
+    outline: none;
+    color: var(--main-dark);
+    width: 60rem; height: 2rem;
+    border-radius: .4rem 0 0 .4rem;
+    background-color: var(--main-light);
+    border: 2px solid var(--accent); border-right: none;
+}
+
+#home-search-button {
+    color: var(--main-light);
+    border-radius: 0 .4rem .4rem 0;
+    background-color: var(--accent);
+    border: 2px solid var(--accent);
+    width: 4rem; height: calc(4rem + 4px);
+}
+
+#home-search-button i {
+    font-size: .8rem;
+    transition: all .3s ease;
+}
+
+#home-search-button:hover i {
+    font-size: 1rem;
+}
+
+/* -------------------------------------------------------------------------- */
+
+#home-search {
+    display: flex;
+    margin-top: 2rem;
+    align-items: center;
+    justify-content: center;
+    background-color: green;
+}
+
+#home-search-result {
+    width: 33rem; height: 30rem;
+    background-color: blue;
+}
+
+#home-search-details {
+    width: 33rem; height: 30rem;
+    background-color: red;
+}
 
 /* -------------------------------------------------------------------------- */
