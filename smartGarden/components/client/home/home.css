@@ -2,7 +2,7 @@
 /* HOME: CLIENT ------------------------------------------------------------- */
 
 .home-container {
-    display: block;
+    display: flex;
     flex-direction: column;
     color: var(--main-dark);
 }
@@ -65,21 +65,18 @@
 
 #hm-data {
     display: flex;
-    margin-top: 2rem;
     align-items: center;
     justify-content: center;
     /* background-color: green; */
+
+    flex-wrap: wrap;
 }
 
-#hm-data-result {
+#hm-data-result, #hm-data-details {
     overflow: auto;
-    width: 33rem; height: 37.2rem;
-    /* background-color: blue; */
-}
-
-#hm-data-details {
-    width: 33rem; height: 37.2rem;
-    /* background-color: red; */
+    width: 33rem;
+    height: 37.2rem;
+    margin-top: 2rem;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -146,23 +143,21 @@
     border-width: 3px; border-radius: 12px;
     width: 18rem; height: 18rem;
     margin-bottom: 1rem;
+    box-shadow: 0 0rem 1.2rem var(--accent);
 }
 
-#hm-details-info {
+.hm-details-info {
     padding: 1rem;
-    width: 26rem;
-    /* background-color: blueviolet; */
+    width: 22rem;
 }
 
-#hm-details-info i {
+.hm-details-info i {
     width: 1.8rem;
-    /* color: var(--accent); */
     filter: drop-shadow(0 0 8px var(--accent));
 }
 
-#hm-details-info strong {
+.hm-details-info strong {
     font-weight: 500;
 }
-
 
 /* -------------------------------------------------------------------------- */

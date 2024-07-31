@@ -7,6 +7,7 @@ import { accuWeather } from '../../../api/config.js';
 
 export const init = () =>{
     console.log('   • Inicializando WEATHER (CLIENT)...');
+    document.title= 'Clima | Smart Garden';
     getGeoLocation();
 }
 

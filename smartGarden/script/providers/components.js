@@ -46,7 +46,7 @@ export let settings = {
 // -------------------------------------------------------------------------- //
 
 // Función auxiliar para cargar un componente.
-async function loadComponent(component) {
+async function loadComponent(component, ...args) {
 
     // Se obtiene el nombre de los archivos a cargar.
     const componentName = component.id;
@@ -80,14 +80,14 @@ async function loadComponent(component) {
     contentElement.innerHTML = await response.text();
 
     // Se importa y ejecuta el módulo JS del componente.
-    await importModule(moduleURL);
+    await importModule(moduleURL, ...args);
 };
 
 // Función para importar y ejecutar el módulo JS de un componente.
-async function importModule(moduleSRC) {
+async function importModule(moduleSRC, ...args) {
     console.log('   • Importing module: ' + moduleSRC);
     let { init } = await import(moduleSRC);
-    init();
+    init(...args);
 };
 
 // Función para la carga de componentes según el tipo de usuario.
@@ -127,10 +127,10 @@ export async function loadSessionComponents(user) {
 };
 
 // Función para cargar un componente específico.
-export async function loadSpecificComponent(componentId) {
+export async function loadSpecificComponent(componentId, ...args) {
     const component = window.availableComponents.find(comp => comp.id === componentId);
     if (component) {
-        await loadComponent(component);
+        await loadComponent(component, ...args);
     } else {
         throw new Error('ERROR: Component not found or not accessible for this user.');
     }
