@@ -1,4 +1,8 @@
 
+// -------------------------------------------------------------------------- //
+
+import { loadSessionComponents } from '../providers/components.js';
+
 // LOAD: HEADER-CONTENT: ---------------------------------------------------- //
 
 export async function headerContent(user) {
@@ -12,7 +16,7 @@ export async function headerContent(user) {
 
     // ---------------------------------------------------------------------- //
 
-    if (user.type === null) {
+    if (user.role === null) {
         let headerInfo = document.getElementById('header-right');
 
         let signinButton = document.createElement('div');
@@ -37,10 +41,11 @@ export async function headerContent(user) {
         let userName = user.firstName.split(' ')[0] + ' ' + user.lastName.split(' ')[0];
 
         // Muestra el avatar del usuario.
-        showAvatar(user.firstName, user.lastName, user.image, user.type);
+        // showAvatar(user.firstName, user.lastName, user.image, user.role);
+        showAvatar(user.firstName, user.lastName, user.role);
 
         // Rellena la informaicón del menú de sesión.
-        headerSessionMenu(userName, user.type);
+        headerSessionMenu(userName, user.role);
 
         // Crea el botón para desplegar el SIDEBAR.
         let sidebarButton = document.createElement('i');
@@ -49,11 +54,11 @@ export async function headerContent(user) {
         headerSidebar.appendChild(sidebarButton);
 
         // Rellena la información del SIDEBAR.
-        sidebarMenu(user.type);
+        sidebarMenu(user.role);
 
         // ------------------------------------------------------------------  //
 
-        if (user.type === 'client') {
+        if (user.role === 'client') {
             // Nombre, ícono (FontAwesome), ID del componente.
             let shortcutOne = createShortcut('Inicio', 'fa-house', 'home');
             let shortcutTwo = createShortcut('Jardines', 'fa-leaf', 'gardens');
@@ -66,9 +71,11 @@ export async function headerContent(user) {
             headerNavigation.appendChild(shortcutThree);
             headerNavigation.appendChild(shortcutFour);
 
-        } else if (user.type === 'admin' || user.type === 'superAdmin') {
+        } else if (user.role === 'admin' || user.role === 'superAdmin') {
             // ...
         }
+
+        closeAllMenu();
     }
 }
 
@@ -90,7 +97,7 @@ function createShortcut(name, iconFA, componentId) {
 }
 
 // Muestra las primeras dos iniciales o la imagen de usuario.
-async function showAvatar(name1, name2, image, type) {
+async function showAvatar(name1, name2, type) {
     let headerProfile = document.getElementById('header-right');
     let sidebarProfile = document.getElementById('main-sidebar');
 
@@ -104,15 +111,15 @@ async function showAvatar(name1, name2, image, type) {
 
     // ---------------------------------------------------------------------- //
 
-    if (image !== null) {
-        let headerImage = document.createElement('img');
-        headerProfile.appendChild(headerImage);
-        headerImage.id = 'toggle-session';
-        headerImage.alt = name1;
-        headerImage.src = image;
-        headerImage.setAttribute('open', 'false');
+    // if (image !== null) {
+    //     let headerImage = document.createElement('img');
+    //     headerProfile.appendChild(headerImage);
+    //     headerImage.id = 'toggle-session';
+    //     headerImage.alt = name1;
+    //     headerImage.src = image;
+    //     headerImage.setAttribute('open', 'false');
 
-    } else {
+    // } else {
         let initial1 = name1.split(' ')[0].charAt(0).toUpperCase();
         let initial2 = name2.split(' ')[0].charAt(0).toUpperCase();
 
@@ -125,7 +132,7 @@ async function showAvatar(name1, name2, image, type) {
         let initialsText = document.createElement('span');
         initialsText.innerHTML = initial1 + initial2;
         headerInitials.appendChild(initialsText);
-    }
+    // }
 
     let sidebarName = document.getElementById('sidebar-username');
     let userName = name1.split(' ')[0] + ' ' + name2.split(' ')[0];
@@ -172,7 +179,33 @@ function headerSessionMenu(name, type) {
     // Nombre, ícono (FontAwesome), ID del componente.
     let buttonOne = createSessionButton('Perfil', 'fa-user', 'profile');
     let buttonTwo = createSessionButton('Dudas frecuentes', 'fa-gear', 'profile');
-    let buttonThree = createSessionButton('Cerrar sesión', 'fa-right-from-bracket', 'profile');
+    // let buttonThree = createSessionButton('Cerrar sesión', 'fa-right-from-bracket', 'profile');
+
+    // ---------------------------------------------------------------------- //
+
+    let buttonThree =  document.createElement('div');
+    buttonThree.classList = 'session-menu-button';
+
+    let icon = document.createElement('i');
+    icon.classList = `fa-solid fa-right-from-bracket fa-sm`;
+    let nameElement = document.createElement('small');
+    nameElement.innerHTML = 'Cerrar sesión';
+
+    buttonThree.addEventListener('click', () => {
+        // Elimina los datos del usuario del almacenamiento local.
+        localStorage.removeItem('user');
+
+        // Carga los componentes para un usuario no autenticado.
+        loadSessionComponents(null);
+
+        // Recarga la página para reflejar el estado de no autenticado.
+        window.location.reload();
+    });
+
+    buttonThree.appendChild(icon);
+    buttonThree.appendChild(nameElement);
+
+    // ---------------------------------------------------------------------- //
 
     sessionMenu.appendChild(buttonOne);
     sessionMenu.appendChild(buttonTwo);
@@ -292,7 +325,7 @@ async function toggleSidebar() {
 };
 
 // Cierra los menús activos presionar en cualquier lugar de la pantalla.
-export function closeAllMenu() {
+export async function closeAllMenu() {
     let content = document.getElementById('page-content');
 
     let sidebar = document.getElementById('toggle-sidebar');

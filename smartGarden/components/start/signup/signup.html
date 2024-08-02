@@ -3,6 +3,61 @@
 
 <link rel='stylesheet' href='components/start/signup/signup.css' >
 
-SIGNUP START
+<!-- ----------------------------------------------------------------------- -->
+
+<section class='sign-container'>
+
+    <div id='sign-content'>
+
+        <!-- Sección de OVERLAY -->
+        <div class='sign-overlay-container'>
+            <div class='sign-overlay-panel'>
+                <img src='../../../../../smartGardenWEB/smartGarden/assets/adaptive-icon.png' alt='MY SMART-GARDEN'>
+
+                <small>¿Ya tienes una cuenta?</small>
+                <button id='su-login'>INICIA SESIÓN</button>
+            </div>
+        </div>
+
+        <!-- Sección de SIGNUP -->
+        <div class='sign-form sign-up-form'>
+
+            <div class='sign-form-header'>
+                <strong>CREAR NUEVA CUENTA</strong>
+                <small>¿Qué tal? Ingresa tus datos para continuar</small>
+                <small>Te estamos esperando...</small>
+            </div>
+
+            <div class='signup-form'>
+                <input type='email' placeholder='Correo electrónico' maxlength='64' id='su-email'>
+                <input type='password' placeholder='Contraseña' maxlength='64' id='su-password'>
+
+                <div class='sign-two-form'>
+                    <input type='text' placeholder='Nombre' maxlength='64' id='su-firstName'>
+                    <input type='text' placeholder='Apellidos' maxlength='128' id='su-lastName'>
+                </div>
+
+                <input type='text' placeholder='Calle' maxlength='64' id='su-street'>
+
+                <div class='sign-two-form'>
+                    <input type='number' placeholder='Código postal' maxlength='5' id='su-zip'
+                        oninput='if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);'>
+                    <input type='text' placeholder='Ciudad' maxlength='64' id='su-city'>
+                </div>
+
+                <div class='sign-two-form'>
+                    <input type='text' placeholder='Estado' maxlength='64' id='su-state'>
+                    <input type='text' placeholder='País' maxlength='64' id='su-country'>
+                </div>
+
+                <button id='su-continue'>
+                    CONTINUAR
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+</section>
 
 <!-- ----------------------------------------------------------------------- -->

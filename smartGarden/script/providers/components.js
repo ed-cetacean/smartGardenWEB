@@ -72,15 +72,22 @@ async function loadComponent(component, ...args) {
     // ---------------------------------------------------------------------- //
 
     // Se realiza una solicitud para obtener el contenido HTML del componente.
-    const response = await fetch(requestURL, { headers: { 'cache': 'no-store' } });
-    if (!response.ok) throw new Error('ERROR: Failed to load component: ' + componentName + '. '
-        + response.status + ': ' + response.statusText);
+    try {
+        const response = await fetch(requestURL, { headers: { 'cache': 'no-store' } });
+        if (!response.ok) throw new Error('ERROR: Failed to load component: ' + componentName + '. ' + response.status + ': ' + response.statusText);
 
-    // Se inserta el contenido HTML en el elemento 'content'.
-    contentElement.innerHTML = await response.text();
+        contentElement.innerHTML = await response.text();
+    } catch (error) {
+        console.error(error.message);
+    }
 
     // Se importa y ejecuta el módulo JS del componente.
-    await importModule(moduleURL, ...args);
+    try {
+        await importModule(moduleURL, ...args);
+    } catch (error) {
+        console.error('ERROR: Failed to import module: ' + moduleURL + '. ' + error.message);
+    }
+
 };
 
 // Función para importar y ejecutar el módulo JS de un componente.

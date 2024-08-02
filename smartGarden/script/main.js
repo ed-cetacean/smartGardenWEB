@@ -1,17 +1,8 @@
 
 // ------------------------------ MAIN JSCRIPT ------------------------------ //
 
-import { headerContent, closeAllMenu } from './providers/content.js';
+import { headerContent } from './providers/content.js';
 import { loadSessionComponents, loadSpecificComponent } from './providers/components.js';
-
-// -------------------------------------------------------------------------- //
-
-const user = {
-    firstName: 'Ed',
-    lastName: 'Rubio Zuñiga',
-    image: null,//'https://i.pinimg.com/originals/bc/a5/38/bca5383122341b1acb4905d70dcfdbf4.png',
-    type: 'client',
-}
 
 // ---------------------------------- INIT ---------------------------------- //
 
@@ -20,17 +11,24 @@ window.addEventListener('load', init);
 function init() {
     console.log('― Inicializando APP...');
 
+    // ---------------------------------------------------------------------- //
+
+    const noUser = { firstName: 'Anónimo', lastName: 'Anónimo', image: null, role: null };
+
+    // Intenta obtener los datos del usuario desde el almacenamiento local.
+    let user = localStorage.getItem('user');
+
+    if (user) { user = JSON.parse(user);
+    } else { user = noUser; localStorage.setItem('user', JSON.stringify(noUser)); }
+
     // Carga los componentes correspondientes al usuario.
-    loadSessionComponents(user.type);
+    loadSessionComponents(user.role || null);
 
     // Carga los accesos directos del HEADER correspondientes al usuario.
     headerContent(user);
 
     // Permite la carga de componentes en determinados botones.
     setupShortcuts();
-
-    // Permite cerrar todoss los menús desplegables.
-    closeAllMenu();
 };
 
 // ----------------------- FUNCIONALIDAD DE LA PÁGINA ----------------------- //

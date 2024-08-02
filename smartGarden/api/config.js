@@ -30,7 +30,7 @@ export const mercadoPago = {
 // SmartGarden API:
 export const smartGarden = {
     url: {
-        api: '',
+        api: 'https://gardenapi20240801192739.azurewebsites.net/api/',
         apiKey: '',
     },
 };
