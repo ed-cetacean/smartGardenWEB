@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membresías | Smart Garden</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Asegúrate de tener tu archivo CSS -->
+</head>
+<body>
+    <h1>Membresías</h1>
+
+    <!-- Sección para Crear Membresía -->
+    <section>
+        <h2>Crear Membresía</h2>
+        <form id="createMembershipForm">
+            <label for="membershipName">Nombre:</label>
+            <input type="text" id="membershipName" required>
+            
+            <label for="membershipDescription">Descripción:</label>
+            <input type="text" id="membershipDescription" required>
+            
+            <label for="membershipDurationDays">Duración (días):</label>
+            <input type="number" id="membershipDurationDays" required>
+            
+            <label for="membershipPrice">Precio:</label>
+            <input type="number" id="membershipPrice" step="0.01" required>
+            
+            <button type="submit">Crear Membresía</button>
+        </form>
+    </section>
+
+    <!-- Sección para Actualizar Membresía -->
+    <section>
+        <h2>Actualizar Membresía</h2>
+        <form id="updateMembershipForm" style="display:none;">
+            <input type="hidden" id="updateMembershipId">
+
+            <label for="updateMembershipName">Nombre:</label>
+            <input type="text" id="updateMembershipName" required>
+            
+            <label for="updateMembershipDescription">Descripción:</label>
+            <input type="text" id="updateMembershipDescription" required>
+            
+            <label for="updateMembershipDurationDays">Duración (días):</label>
+            <input type="number" id="updateMembershipDurationDays" required>
+            
+            <label for="updateMembershipPrice">Precio:</label>
+            <input type="number" id="updateMembershipPrice" step="0.01" required>
+            
+            <button type="submit">Actualizar Membresía</button>
+        </form>
+    </section>
+
+    <!-- Sección para Eliminar Membresía -->
+    <section>
+        <h2>Membresías Registradas</h2>
+        <ul id="membershipList"></ul>
+    </section>
+
+    <script src="memberships.js"></script> <!-- Asegúrate de que el nombre del archivo JavaScript sea correcto -->
+</body>
+</html>
