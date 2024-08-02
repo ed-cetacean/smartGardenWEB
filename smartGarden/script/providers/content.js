@@ -268,8 +268,19 @@ function sidebarMenu(type) {
         sidebar.appendChild(buttonThree);
         sidebar.appendChild(buttonFour);
     } else if (type === 'admin' || type === 'superAdmin') {
-        // ...
-    }
+        // Accesos directos para administradores.
+        let buttonOne = createSidebarnButton('Inicio Admin', 'fa-house-user', 'homeAdmin'); // Nuevo acceso directo
+        let buttonTwo = createSidebarnButton('Usuarios', 'fa-users', 'users'); // Sección de usuarios
+        let buttonThree = createSidebarnButton('Inventario', 'fa-box', 'inventory'); // Sección de inventario
+        let buttonFour = createSidebarnButton('Membresías', 'fa-users-rectangle', 'memberships'); // Sección de membresías
+        let buttonFive = createSidebarnButton('Paquetes de Sensores', 'fa-cogs', 'sensorPacks'); // Nueva sección de paquetes de sensores
+    
+        sidebar.appendChild(buttonOne);
+        sidebar.appendChild(buttonTwo);
+        sidebar.appendChild(buttonThree);
+        sidebar.appendChild(buttonFour);
+        sidebar.appendChild(buttonFive);
+    }    
 
     if (type === 'superAdmin') {
         // ...

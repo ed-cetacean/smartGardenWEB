@@ -1,8 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Usuarios</title>
+    <link rel="stylesheet" href="components/admin/users/users.css">
+</head>
+<body>
+    <h1>Gestión de Usuarios</h1>
 
-<!-- USERS: ADMIN ---------------------------------------------------------- -->
+    <h2>Crear Usuario</h2>
+    <form id="createUserForm">
+        <input type="text" id="firstName" placeholder="Nombre" required>
+        <input type="text" id="lastName" placeholder="Apellido" required>
+        <input type="email" id="email" placeholder="Correo electrónico" required>
+        <input type="password" id="password" placeholder="Contraseña" required>
+        <input type="text" id="street" placeholder="Calle">
+        <input type="text" id="zip" placeholder="Código Postal">
+        <input type="text" id="city" placeholder="Ciudad">
+        <input type="text" id="state" placeholder="Estado">
+        <input type="text" id="country" placeholder="País">
+        <button type="submit">Crear Usuario</button>
+    </form>
 
-<link rel='stylesheet' href='components/admin/users/users.css' >
+    <h2>Usuarios Registrados</h2>
+    <ul id="userList"></ul>
 
-USERS ADMIN
+    <h2>Modificar Usuario</h2>
+    <select id="userSelect">
+        <option value="">Seleccionar usuario</option>
+    </select>
+    <button id="deleteUserButton" style="display: none;">Eliminar Usuario</button>
+    <form id="updateUserForm" style="display: none;">
+        <input type="hidden" id="updateUserId">
+        <input type="text" id="updateFirstName" placeholder="Nuevo Nombre" required>
+        <input type="text" id="updateLastName" placeholder="Nuevo Apellido" required>
+        <input type="email" id="updateEmail" placeholder="Nuevo Correo electrónico" required>
+        <input type="text" id="updateStreet" placeholder="Nueva Calle">
+        <input type="text" id="updateZip" placeholder="Nuevo Código Postal">
+        <input type="text" id="updateCity" placeholder="Nueva Ciudad">
+        <input type="text" id="updateState" placeholder="Nuevo Estado">
+        <input type="text" id="updateCountry" placeholder="Nuevo País">
+        <button type="submit">Actualizar Usuario</button>
+    </form>
 
-<!-- ----------------------------------------------------------------------- -->
+    <script src="users.js"></script>
+</body>
+</html>

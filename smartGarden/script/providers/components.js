@@ -31,8 +31,13 @@ export let settings = {
 
         // Un administrador ha iniciado sesión.
         admin: [
-            { id: 'users', url: 'components/admin/users' },
+            { id: 'homeAdmin', url: 'components/admin/homeAdmin' }, // Sección Inicio
+            { id: 'users', url: 'components/admin/users' }, // Sección de usuarios
+            { id: 'inventory', url: 'components/admin/inventory' }, // Sección de inventario
+            { id: 'memberships', url: 'components/admin/memberships' }, // Sección de membresías
+            { id: 'sensorPacks', url: 'components/admin/sensorPacks' }, // Sección de paquetes de sensores
         ],
+
 
         // El administrador principal ha iniciado sesión.
         superAdmin: [
@@ -115,7 +120,7 @@ export async function loadSessionComponents(user) {
             mainComponent = settings.load.client.find(component => component.id === 'home');
         } else if (user === 'admin') {
             componentList = componentList.concat(settings.load.admin);
-            mainComponent = settings.load.admin.find(component => component.id === 'users');
+            mainComponent = settings.load.admin.find(component => component.id === 'homeAdmin');
         } else if (user === 'superAdmin') {
             componentList = componentList.concat(settings.load.admin, settings.load.superAdmin);
             mainComponent = settings.load.superAdmin.find(component => component.id === 'newAdmin');
